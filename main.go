@@ -8,22 +8,21 @@ import (
 )
 
 func main() {
-	app := qt.NewQApplication(len(os.Args), os.Args)
-	defer app.Delete()
+	qt.NewQApplication(os.Args)
 
-	window := qt.NewQWidget(nil, 0)
+	window := qt.NewQWidget(nil)
 	window.SetWindowTitle("Hello miqt")
-	window.Resize2(320, 200)
+	window.Resize(320, 200)
 
 	btn := qt.NewQPushButton2("Click me", window)
-	btn.Move2(110, 80)
+	btn.Move(110, 80)
 
 	clicks := 0
-	btn.OnClicked(func(checked bool) {
+	btn.OnClicked(func() {
 		clicks++
 		btn.SetText(fmt.Sprintf("Clicked %d times", clicks))
 	})
 
 	window.Show()
-	app.Exec()
+	qt.QApplication_Exec()
 }
