@@ -1,0 +1,42 @@
+name: Build Android APK
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:   # manual trigger button in GitHub UI
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: "1.24"
+
+      - name: Install miqt-docker
+        run: go install github.com/mappu/miqt/cmd/miqt-docker@latest
+
+      # Cache the Go build cache across runs — first build is ~10min, after that fast
+      - name: Cache Go build cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/go-build
+          key: ${{ runner.os }}-gobuild-android-${{ hashFiles('**/*.go', 'go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-gobuild-android-
+
+      - name: Build APK (Qt5)
+        run: miqt-docker android-qt5 -android-build
+        # swap to android-qt6 if you want Qt6
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-${{ github.sha }}
+          path: "*.apk"
+          retention-days: 14
