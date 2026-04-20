@@ -29,10 +29,12 @@ jobs:
           key: ${{ runner.os }}-gobuild-android-${{ hashFiles('**/*.go', 'go.sum') }}
           restore-keys: |
             ${{ runner.os }}-gobuild-android-
-
+            
       - name: Build APK (Qt5)
+        env:
+          GONOSUMDB: "*"
+          GOFLAGS: "-mod=mod"
         run: miqt-docker android-qt5 -android-build
-        # swap to android-qt6 if you want Qt6
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
