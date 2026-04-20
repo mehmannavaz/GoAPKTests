@@ -14,7 +14,9 @@ func main() {
 	window.SetWindowTitle("Hello miqt")
 	window.Resize(320, 200)
 
-	btn := qt.NewQPushButton2("Click me", window)
+	btn := qt.NewQPushButton()
+	btn.SetText("Click me")
+	btn.SetParent(window)
 	btn.Move(110, 80)
 
 	clicks := 0
