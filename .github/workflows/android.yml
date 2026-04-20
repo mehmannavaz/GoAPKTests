@@ -31,10 +31,9 @@ jobs:
             ${{ runner.os }}-gobuild-android-
             
       - name: Build APK (Qt5)
-        env:
-          GONOSUMDB: "*"
-          GOFLAGS: "-mod=mod"
-        run: miqt-docker android-qt5 -android-build
+        run: |
+          miqt-docker android-qt5 go get github.com/mappu/miqt/qt@v0.11.0
+          miqt-docker android-qt5 -android-build
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
