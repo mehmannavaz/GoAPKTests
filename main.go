@@ -4,13 +4,13 @@ import (
 	"fmt"
 	"os"
 
-	"foo/hoo"
+	"myapp/foo"
 	"github.com/mappu/miqt/qt"
 )
 
 func main() {
 	qt.NewQApplication(os.Args)
-	text := hoo.SayMyName("test")
+	text := foo.SayMyName("test")
 
 	window := qt.NewQWidget(nil)
 	window.SetWindowTitle("Hello miqt")
