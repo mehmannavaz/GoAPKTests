@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"foo/hoo"
+	"myapp/foo"
 	"github.com/mappu/miqt/qt"
 )
 
