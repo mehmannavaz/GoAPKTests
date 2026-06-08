@@ -1,5 +1,5 @@
 package foo
 
-func SayMyName(name string){
+func SayMyName(name string) string {
 	return name
 }
